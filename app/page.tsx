@@ -23,10 +23,27 @@ import CustomCard from "@/components/Card";
 
 //Charts
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from "chart.js";
+import { Bar, Doughnut } from "react-chartjs-2";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title
+);
 
 interface Day7Data {
   name: string;
@@ -39,6 +56,11 @@ interface graphData {
   color: string;
   value: string;
   change: string;
+}
+
+interface labelsType {
+  name: string;
+  image: string;
 }
 
 export default function Home() {
@@ -215,41 +237,20 @@ export default function Home() {
     ],
   };
 
-  // const options = {
-  //   plugins: {
-  //     legend: {
-  //       labels: {
-  //         font: {
-  //           size: 14,
-  //         },
-  //         // Override generateLabels to customize legend div
-  //         generateLabels: function (chart: any) {
-  //           const original =
-  //             ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
-
-  //           const customLabel = {
-  //             // Add your custom element here
-  //             text: "Custom Legend Text",
-  //             // Customize its appearance
-  //             fillStyle: "#FF5733",
-  //             // Set marker type (if needed)
-
-  //             marker: {
-  //               // type: "circle",
-  //               radius: 100,
-  //               color: "#FF5733",
-  //               backgroundColor: "#FF5733",
-  //               pointStyle: "circle",
-  //             },
-  //           };
-  //           // Add the custom label to the legend labels
-  //           original.unshift(customLabel);
-  //           return original;
-  //         },
-  //       },
-  //     },
-  //   },
-  // };
+  const barOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: "top" as const,
+      },
+      layout: {
+        padding: {
+          bottom: 50, // Adjust as needed
+        },
+      },
+    },
+  };
 
   const holderTraders: graphData[] = [
     {
@@ -277,6 +278,60 @@ export default function Home() {
       change: "-11.12",
     },
   ];
+
+  const labels: labelsType[] = [
+    {
+      name: "CryptoPunks",
+      image: "/nav/1.svg",
+    },
+    {
+      name: "Bored Ape Yacht Club",
+      image: "/nav/2.svg",
+    },
+    {
+      name: "Art Blocks",
+      image: "/nav/3.svg",
+    },
+    {
+      name: "Pudgy Penguins",
+      image: "/nav/4.svg",
+    },
+    {
+      name: "Mutant Ape Yacht Club",
+      image: "/nav/5.svg",
+    },
+    {
+      name: "Cool Cats",
+      image: "/nav/6.svg",
+    },
+    {
+      name: "World of NFT",
+      image: "/nav/7.svg",
+    },
+    {
+      name: "Mutant Ape Yacht Club",
+      image: "/nav/5.svg",
+    },
+    {
+      name: "Cool Cats",
+      image: "/nav/6.svg",
+    },
+    {
+      name: "World of NFT",
+      image: "/nav/7.svg",
+    },
+  ];
+
+  const topCollectionBarData = {
+    labels: labels.map((item) => item.name),
+    datasets: [
+      {
+        label: "Top Collections",
+        data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 100)),
+        backgroundColor: "#4836FF",
+      },
+    ],
+  };
   function shuffle(array: Day7Data[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -1047,7 +1102,12 @@ export default function Home() {
                           className={cn(
                             "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                           )}
-                        ></div>
+                        >
+                          <Bar
+                            data={topCollectionBarData}
+                            options={barOptions}
+                          />
+                        </div>
                       </TabsContent>
                     </>
                   )
