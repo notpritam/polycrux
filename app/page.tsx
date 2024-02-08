@@ -3,6 +3,19 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 
+//shadcn
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   const [selected, setSelected] = useState(5);
   return (
@@ -47,11 +60,96 @@ export default function Home() {
 
       {/* Main Body */}
 
-      <div>
+      <div className="w-full flex-1">
         {/* Header */}
-        <div>
-          <div></div>
-          <div></div>
+        <div className="h-[61px] flex sticky top-0 w-full justify-between border-b-[1px] border-borderGray px-[24px] py-[10px]">
+          {/* First Section with DropDown */}
+          <div className="flex items-center gap-[24px]">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="h-[42px] px-[14px] py-[10px] flex gap-2 text-lightTextColor items-center bg-secDark rounded-[6px]">
+                <div className="flex items-center gap-[14px]">
+                  <Image
+                    src={"/header/eth.svg"}
+                    height={15}
+                    width={10}
+                    alt="logo"
+                  />
+                  <span>Etherum</span>
+                </div>
+                <Image
+                  src={"/header/arrow.svg"}
+                  height={10}
+                  width={14}
+                  alt="logo"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Team</DropdownMenuItem>
+                <DropdownMenuItem>Subscription</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <div className="text-[14px] gap-2 text-lightTextColor flex items-center">
+              <span className="text-iconGray opacity-60">Dashboards</span>{" "}
+              <span> / </span> <span>Market Mood</span>
+            </div>
+          </div>
+
+          {/* Second Section with Search and Button */}
+          <div className="flex gap-[24px]">
+            <div className="bg-secDark flex items-center h-[40px] min-w-[384px] rounded-[8px] p-[8px] broder-black01 border-[1px]">
+              <div className="h-[24px] w-[24px] flex items-center justify-center">
+                <Image
+                  src={"/header/search.svg"}
+                  height={19}
+                  width={19}
+                  alt="logo"
+                />
+              </div>
+              <Input
+                className="text-[14px] bg-transparent border-0 "
+                placeholder="Search by collection, NFT, and user"
+              ></Input>
+
+              <Button className="text-lightTextColor bg-mainDark p-0 h-[30px] px-[12px] py-[8px]">
+                /
+              </Button>
+            </div>
+
+            <Button className="bg-transparent">
+              <Image
+                src={"/header/themeToogle.svg"}
+                height={24}
+                width={24}
+                alt="logo"
+              />
+            </Button>
+            <Button className="bg-transparent">
+              <Image
+                src={"/header/notification.svg"}
+                height={24}
+                width={24}
+                alt="logo"
+              />
+            </Button>
+            <Button className="bg-primaryLight text-black">
+              Connect Wallet
+            </Button>
+
+            <div className="relative flex items-center justify-center">
+              <div className="h-[14px] absolute z-[2] text-white flex items-center justify-center text-[7px] top-2 right-[-4px] w-[14px] bg-primaryColor rounded-full">
+                0
+              </div>
+              <Image
+                src={"/header/cart.svg"}
+                height={24}
+                width={24}
+                alt="logo"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </main>
