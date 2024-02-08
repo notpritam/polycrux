@@ -954,6 +954,104 @@ export default function Home() {
               </Tabs>
             </CustomCard>
           </div>
+
+          <div className="flex flex-col gap-[20px] text-white">
+            {/* Title */}
+            <div className="flex flex-col gap-1">
+              <span className="text-white text-[26px] font-semibold">
+                Share by Chain
+              </span>
+              <p className="text-[14px] text-iconGray">
+                Lorem ipsum dolor sit amet consectetur.
+              </p>
+            </div>
+
+            <div className="flex gap-[20px] ">
+              {[
+                "Total Volume by Chain",
+                "Unique Users by Chain",
+                "Sellers by Chain",
+              ].map((item, i) => (
+                <>
+                  <CustomCard key={i} className="flex-grow ">
+                    <div className="flex gap-1 items-center">
+                      <span className="font-medium text-white text-[20px]">
+                        {item}
+                      </span>
+                      <Image
+                        src={"/icons/info.svg"}
+                        height={16}
+                        width={16}
+                        alt="logo"
+                      />
+                    </div>
+                    <div className="min-h-[300px] min-w-[300px]"></div>
+
+                    <div className="flex w-full flex-wrap justify-center gap-4">
+                      {holderTraders.map((item, i) => (
+                        <>
+                          <div
+                            key={i}
+                            className={cn(
+                              " pr-[12px] flex flex-col gap-[2px]",
+                              i + 1 != holderTraders.length
+                                ? "border-r-[1px] border-black01"
+                                : ""
+                            )}
+                          >
+                            <div className="flex items-center gap-[6px]">
+                              <div
+                                className={cn(
+                                  "h-[10px] w-[10px] rounded-full",
+                                  item.color
+                                )}
+                              ></div>
+                              <span className="text-iconGray text-[14px]">
+                                {item.name}
+                              </span>
+                            </div>
+                            <div className="flex items-end gap-1">
+                              <span className={cn(" text-[14px] text-white")}>
+                                {item.change}%
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      ))}
+                    </div>
+                  </CustomCard>
+                </>
+              ))}
+            </div>
+            <div className="flex gap-[20px]">
+              <CustomCard className="flex-grow min-h-[400px]">
+                <div className="flex gap-1 items-center">
+                  <span className="font-medium text-white text-[20px]">
+                    Category Market Cap
+                  </span>
+                  <Image
+                    src={"/icons/info.svg"}
+                    height={16}
+                    width={16}
+                    alt="logo"
+                  />
+                </div>
+              </CustomCard>
+              <CustomCard className="flex-grow min-h-[400px]">
+                <div className="flex gap-1 items-center">
+                  <span className="font-medium text-white text-[20px]">
+                    Category Market Cap
+                  </span>
+                  <Image
+                    src={"/icons/info.svg"}
+                    height={16}
+                    width={16}
+                    alt="logo"
+                  />
+                </div>
+              </CustomCard>
+            </div>
+          </div>
         </div>
         {/* Footer */}
         <Footer />
