@@ -22,6 +22,8 @@ const config = {
         light: "#FBFBFB",
         primaryLight: "#A49BFF",
         primaryColor: "#4836FF",
+        customRed: "#FE749B",
+        customGreen: "#10DAB6",
         secDark: "#1C1C1C",
         mainDark: "#141416",
         black01: "#353945",

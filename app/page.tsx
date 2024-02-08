@@ -18,12 +18,139 @@ import { Button } from "@/components/ui/button";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+interface Day7Data {
+  name: string;
+  value: string;
+  gainValue: string;
+}
+
 export default function Home() {
   const [selected, setSelected] = useState(5);
+
+  const data7Day = [
+    {
+      name: "Holders",
+      value: "4,794,450",
+      gainValue: "-0.025024358",
+    },
+    {
+      name: "Traders Ratio",
+      value: "0.0025",
+      gainValue: "-0.7075426",
+    },
+    {
+      name: "Whales",
+      value: "482",
+      gainValue: "-0.008230452",
+    },
+    {
+      name: "Market Cap",
+      value: "$ 13448188000",
+      gainValue: "0.0013140348",
+    },
+    {
+      name: "Traders Buyers",
+      value: "9613",
+      gainValue: "-0.015061475",
+    },
+    {
+      name: "Sharks",
+      value: "11361",
+      gainValue: "-0.11882417",
+    },
+    {
+      name: "Market State",
+      value: "50.00",
+      gainValue: "",
+    },
+    {
+      name: "Traders Sellers",
+      value: "10037",
+      gainValue: "-0.13734423",
+    },
+    {
+      name: "Sales (24H)",
+      value: "31298",
+      gainValue: "-0.086163096",
+    },
+    {
+      name: "Transactions",
+      value: "570364",
+      gainValue: "-0.021507941",
+    },
+    {
+      name: "Washtrade Level",
+      value: "87.38",
+      gainValue: "",
+    },
+    {
+      name: "Trade Activity",
+      value: "24",
+      gainValue: "",
+    },
+    {
+      name: "Transfers",
+      value: "5230738",
+      gainValue: "1.6858484",
+    },
+    {
+      name: "Washtrade Assets",
+      value: "7806",
+      gainValue: "-0.09527121",
+    },
+    {
+      name: "Washtrade Volume",
+      value: "$ 877945.06",
+      gainValue: "-0.42805672",
+    },
+    {
+      name: "Traders",
+      value: "17825",
+      gainValue: "-0.07852564",
+    },
+    {
+      name: "Volume",
+      value: "$ 12528734",
+      gainValue: "-0.31774646",
+    },
+    {
+      name: "Washtrade Wallets",
+      value: "4477",
+      gainValue: "-0.17625554",
+    },
+    {
+      name: "Washtrade Suspect Sales",
+      value: "11361",
+      gainValue: "-0.11882417",
+    },
+    {
+      name: "Washtrade Suspect Sales Ratio",
+      value: "0.00041829038",
+      gainValue: "0.00041821675",
+    },
+    {
+      name: "Whales Transactions",
+      value: "0.00041829038",
+      gainValue: "0.00041821675",
+    },
+    {
+      name: "NFT market fear and greed index",
+      value: "43.835407",
+      gainValue: "-0.42805672",
+    },
+  ];
+  function shuffle(array: Day7Data[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   return (
     <main className="flex min-h-screen min-w-screen dark bg-mainDark">
       {/* SideBar */}
-      <div className="border-[0px] border-r-[1px] border-strokeB1 w-[71px] py-[12px] flex flex-col items-center">
+      <div className="border-[0px] sticky top-0 left-0 h-screen bottom-0 border-r-[1px] border-strokeB1 w-[71px] py-[12px] flex flex-col items-center">
         <div className="flex items-center justify-center w-full">
           <Image src={"/logo.svg"} height={42} width={42} alt="logo" />
         </div>
@@ -64,7 +191,7 @@ export default function Home() {
 
       <div className="w-full flex-1">
         {/* Header */}
-        <div className="h-[61px] flex sticky top-0 w-full justify-between border-b-[1px] border-borderGray px-[24px] py-[10px]">
+        <div className="h-[61px] z-[10] bg-mainDark flex sticky top-0 w-full justify-between border-b-[1px] border-borderGray px-[24px] py-[10px]">
           {/* First Section with DropDown */}
           <div className="flex items-center gap-[24px]">
             <DropdownMenu>
@@ -225,12 +352,63 @@ export default function Home() {
                 15m
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
-              Make changes to your account here.
-            </TabsContent>
-            <TabsContent value="password">
-              Change your password here.
-            </TabsContent>
+            {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+              (item, i) => (
+                <>
+                  <TabsContent
+                    className="w-full pt-[20px] flex gap-[20px] flex-wrap"
+                    value={item}
+                  >
+                    {shuffle(data7Day).map((item, i) => (
+                      <>
+                        <div
+                          className={cn(
+                            "bg-secDark rounded-[12px] min-w-[15%] w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          )}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-4 font-semibold">
+                              {item.name}
+                            </span>
+                            <Image
+                              src={"/icons/question.svg"}
+                              height={30}
+                              width={30}
+                              alt="logo"
+                            />
+                          </div>
+                          <span className="font-semibold text-[22px]">
+                            {item.value}
+                          </span>
+                          <div className="flex items-center gap-[6px]">
+                            <span
+                              className={cn(
+                                "text-[14px]",
+                                parseFloat(item.gainValue) > 0
+                                  ? "text-customGreen"
+                                  : "text-customRed"
+                              )}
+                            >
+                              {item.gainValue}
+                            </span>
+                            <Image
+                              src={
+                                parseFloat(item.gainValue) > 0
+                                  ? "/icons/up.svg"
+                                  : "/icons/down.svg"
+                              }
+                              height={30}
+                              width={30}
+                              alt="logo"
+                            />
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </TabsContent>
+                </>
+              )
+            )}
           </Tabs>
         </div>
       </div>
