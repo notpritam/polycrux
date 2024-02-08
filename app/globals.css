@@ -74,3 +74,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* WebKit Scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1C1C1C; /* Set the background color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #353945; /* Set the background color of the thumb */
+  border-radius: 8px; /* Set border radius for the thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #141416; /* Change background color of the thumb on hover */
+}
