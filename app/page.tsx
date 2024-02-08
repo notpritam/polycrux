@@ -21,6 +21,13 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import CustomCard from "@/components/Card";
 
+//Charts
+
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 interface Day7Data {
   name: string;
   value: string;
@@ -149,6 +156,100 @@ export default function Home() {
       gainValue: "-0.42805672",
     },
   ];
+
+  const colors = {
+    eth: "#2C44B3",
+    polygon: "#AEBBF9",
+    bnb: "#A49BFF",
+    cronos: "#C1C9EE",
+    optimism: "#FFC155",
+  };
+
+  const washTradeData = {
+    labels: ["Ethereum", "Polygon", "BNB Chain", "Cronos", "Optimism"],
+    datasets: [
+      {
+        label: "Volume by Chain",
+        data: [25.35, 24.65, 20.0, 15.0, 15.0],
+        backgroundColor: [
+          colors.eth,
+          colors.polygon,
+          colors.bnb,
+          colors.cronos,
+          colors.optimism,
+        ],
+        // borderColor: [
+        //   "rgba(255, 99, 132, 1)",
+        //   "rgba(54, 162, 235, 1)",
+        //   "rgba(255, 206, 86, 1)",
+        //   "rgba(75, 192, 192, 1)",
+        //   "rgba(153, 102, 255, 1)",
+        // ],
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  const buyerByChain = {
+    labels: ["Ethereum", "Polygon", "BNB Chain", "Cronos", "Optimism"],
+    datasets: [
+      {
+        label: "Buyers by Chain",
+        data: [50.25, 20.75, 15.0, 10.0, 4.0],
+        backgroundColor: [
+          colors.eth,
+          colors.polygon,
+          colors.bnb,
+          colors.cronos,
+          colors.optimism,
+        ],
+        // borderColor: [
+        //   "rgba(255, 99, 132, 1)",
+        //   "rgba(54, 162, 235, 1)",
+        //   "rgba(255, 206, 86, 1)",
+        //   "rgba(75, 192, 192, 1)",
+        //   "rgba(153, 102, 255, 1)",
+        // ],
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  // const options = {
+  //   plugins: {
+  //     legend: {
+  //       labels: {
+  //         font: {
+  //           size: 14,
+  //         },
+  //         // Override generateLabels to customize legend div
+  //         generateLabels: function (chart: any) {
+  //           const original =
+  //             ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+
+  //           const customLabel = {
+  //             // Add your custom element here
+  //             text: "Custom Legend Text",
+  //             // Customize its appearance
+  //             fillStyle: "#FF5733",
+  //             // Set marker type (if needed)
+
+  //             marker: {
+  //               // type: "circle",
+  //               radius: 100,
+  //               color: "#FF5733",
+  //               backgroundColor: "#FF5733",
+  //               pointStyle: "circle",
+  //             },
+  //           };
+  //           // Add the custom label to the legend labels
+  //           original.unshift(customLabel);
+  //           return original;
+  //         },
+  //       },
+  //     },
+  //   },
+  // };
 
   const holderTraders: graphData[] = [
     {
@@ -973,8 +1074,11 @@ export default function Home() {
                 "Sellers by Chain",
               ].map((item, i) => (
                 <>
-                  <CustomCard key={i} className="flex-grow ">
-                    <div className="flex gap-1 items-center">
+                  <CustomCard
+                    key={i}
+                    className="flex-grow justify-center flex flex-col gap-[20px] items-center "
+                  >
+                    <div className="flex gap-1 items-center w-full justify-start">
                       <span className="font-medium text-white text-[20px]">
                         {item}
                       </span>
@@ -985,7 +1089,18 @@ export default function Home() {
                         alt="logo"
                       />
                     </div>
-                    <div className="min-h-[300px] min-w-[300px]"></div>
+                    <div className="max-h-[300px]  items-center flex max-w-[300px]">
+                      <Doughnut
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false,
+                            },
+                          },
+                        }}
+                        data={buyerByChain}
+                      />
+                    </div>
 
                     <div className="flex w-full flex-wrap justify-center gap-4">
                       {holderTraders.map((item, i) => (
@@ -1024,7 +1139,7 @@ export default function Home() {
               ))}
             </div>
             <div className="flex gap-[20px]">
-              <CustomCard className="flex-grow min-h-[400px]">
+              <CustomCard className="flex-grow min-h-[400px] flex flex-col gap-[20px]">
                 <div className="flex gap-1 items-center">
                   <span className="font-medium text-white text-[20px]">
                     Category Market Cap
@@ -1036,8 +1151,52 @@ export default function Home() {
                     alt="logo"
                   />
                 </div>
+
+                <div className="flex gap-[100px] items-center ">
+                  <div className="max-h-[300px] max-w-[300px]">
+                    <Doughnut
+                      options={{
+                        plugins: {
+                          legend: {
+                            display: false,
+                          },
+                        },
+                      }}
+                      data={washTradeData}
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-[4px]">
+                    {washTradeData.labels.map((item, i) => (
+                      <>
+                        <div
+                          className={cn(
+                            " rounded-[6px] px-[12px] py-[4px] flex items-center gap-[3rem] justify-between h-[30px]",
+                            i == 0 ? "bg-blackLight" : ""
+                          )}
+                        >
+                          <div className="flex gap-[4px] items-center">
+                            <div
+                              style={{
+                                backgroundColor:
+                                  washTradeData.datasets[0].backgroundColor[i],
+                              }}
+                              className={cn(
+                                "min-h-[10px] min-w-[10px] rounded-full  "
+                              )}
+                            ></div>
+                            <span className="text-iconGray text-[14px]">
+                              {item}
+                            </span>
+                          </div>
+                          <span>97.85%</span>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </div>
               </CustomCard>
-              <CustomCard className="flex-grow min-h-[400px]">
+              <CustomCard className="flex-grow flex flex-col gap-[20px] min-h-[400px]">
                 <div className="flex gap-1 items-center">
                   <span className="font-medium text-white text-[20px]">
                     Category Market Cap
@@ -1048,6 +1207,49 @@ export default function Home() {
                     width={16}
                     alt="logo"
                   />
+                </div>
+                <div className="flex gap-[100px] items-center ">
+                  <div className="max-h-[300px] max-w-[300px]">
+                    <Doughnut
+                      options={{
+                        plugins: {
+                          legend: {
+                            display: false,
+                          },
+                        },
+                      }}
+                      data={buyerByChain}
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-[4px]">
+                    {buyerByChain.labels.map((item, i) => (
+                      <>
+                        <div
+                          className={cn(
+                            " rounded-[6px] px-[12px] py-[4px] flex items-center gap-[3rem] justify-between h-[30px]",
+                            i == 0 ? "bg-blackLight" : ""
+                          )}
+                        >
+                          <div className="flex gap-[4px] items-center">
+                            <div
+                              style={{
+                                backgroundColor:
+                                  buyerByChain.datasets[0].backgroundColor[i],
+                              }}
+                              className={cn(
+                                "min-h-[10px] min-w-[10px] rounded-full  "
+                              )}
+                            ></div>
+                            <span className="text-iconGray text-[14px]">
+                              {item}
+                            </span>
+                          </div>
+                          <span>97.85%</span>
+                        </div>
+                      </>
+                    ))}
+                  </div>
                 </div>
               </CustomCard>
             </div>
