@@ -31,9 +31,12 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,
+  LineElement,
   Title,
 } from "chart.js";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
   ArcElement,
@@ -42,6 +45,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,
+  LineElement,
   Title
 );
 
@@ -200,16 +205,11 @@ export default function Home() {
           colors.cronos,
           colors.optimism,
         ],
-        // borderColor: [
-        //   "rgba(255, 99, 132, 1)",
-        //   "rgba(54, 162, 235, 1)",
-        //   "rgba(255, 206, 86, 1)",
-        //   "rgba(75, 192, 192, 1)",
-        //   "rgba(153, 102, 255, 1)",
-        // ],
+
         borderWidth: 0,
       },
     ],
+    text: "Volume by Chain",
   };
 
   const buyerByChain = {
@@ -225,20 +225,15 @@ export default function Home() {
           colors.cronos,
           colors.optimism,
         ],
-        // borderColor: [
-        //   "rgba(255, 99, 132, 1)",
-        //   "rgba(54, 162, 235, 1)",
-        //   "rgba(255, 206, 86, 1)",
-        //   "rgba(75, 192, 192, 1)",
-        //   "rgba(153, 102, 255, 1)",
-        // ],
         borderWidth: 0,
+        hoverOffset: 4,
       },
     ],
   };
 
   const barOptions = {
     responsive: true,
+
     plugins: {
       legend: {
         display: false,
@@ -321,6 +316,72 @@ export default function Home() {
       image: "/nav/7.svg",
     },
   ];
+
+  const multilabels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+  ];
+
+  const multiData = {
+    labels: multilabels,
+    datasets: [
+      {
+        type: "line" as const,
+        label: "Dataset 1",
+        borderColor: "#4836FF",
+        // fill: false,
+        backgroundColor: "#4836FF",
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+      },
+      {
+        type: "line" as const,
+        label: "Dataset 1",
+        borderColor: "#FFC155",
+        // fill: false,
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+      },
+      {
+        type: "bar" as const,
+        label: "Dataset 2",
+        backgroundColor: colors.eth,
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+        borderColor: "white",
+        borderThickness: 15,
+        borderRoundness: 10,
+      },
+      {
+        type: "bar" as const,
+        label: "Dataset 3",
+        backgroundColor: colors.polygon,
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+        borderThickness: 15,
+        borderRoundness: 10,
+      },
+      {
+        type: "bar" as const,
+        label: "Dataset 2",
+        backgroundColor: colors.bnb,
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+        borderColor: "white",
+        borderThickness: 15,
+        borderRoundness: 10,
+      },
+      {
+        type: "bar" as const,
+        label: "Dataset 3",
+        backgroundColor: colors.cronos,
+        data: multilabels.map(() => Math.floor(Math.random() * 100)),
+        borderThickness: 15,
+        borderRoundness: 10,
+        //
+      },
+    ],
+  };
 
   const topCollectionBarData = {
     labels: labels.map((item) => item.name),
@@ -679,9 +740,22 @@ export default function Home() {
                     >
                       <div
                         className={cn(
-                          "bg-secDark rounded-[12px] min-h-[200px]  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          "bg-secDark rounded-[12px] max-h-[200px]  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
-                      ></div>
+                      >
+                        <Line
+                          options={{
+                            plugins: {
+                              legend: {
+                                display: false,
+                              },
+                            },
+                          }}
+                          height={300}
+                          width={1800}
+                          data={topCollectionBarData}
+                        />
+                      </div>
                     </TabsContent>
                   </>
                 )
@@ -807,7 +881,23 @@ export default function Home() {
                         className={cn(
                           "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
-                      ></div>
+                      >
+                        <Chart
+                          style={{ width: "1000px" }}
+                          options={{
+                            // responsive: true,
+                            plugins: {
+                              legend: {
+                                display: false,
+                              },
+                            },
+                          }}
+                          width={1800}
+                          height={250}
+                          type="bar"
+                          data={multiData}
+                        />
+                      </div>
                     </TabsContent>
                   </>
                 )
@@ -930,14 +1020,30 @@ export default function Home() {
                 (item, i) => (
                   <>
                     <TabsContent
-                      className="w-full min-h-[250px] pt-[20px] flex gap-[20px] flex-wrap"
+                      className="w-full  pt-[20px] flex gap-[20px] flex-wrap"
                       value={item}
                     >
                       <div
                         className={cn(
-                          "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          "bg-secDark rounded-[12px] w-[80vw] h-[250px]    flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
-                      ></div>
+                      >
+                        <Chart
+                          style={{ width: "1000px" }}
+                          options={{
+                            // responsive: true,
+                            plugins: {
+                              legend: {
+                                display: false,
+                              },
+                            },
+                          }}
+                          width={1800}
+                          height={250}
+                          type="bar"
+                          data={multiData}
+                        />
+                      </div>
                     </TabsContent>
                   </>
                 )
@@ -1014,14 +1120,21 @@ export default function Home() {
                   (item, i) => (
                     <>
                       <TabsContent
-                        className="w-full pt-[20px] min-h-[300px] flex gap-[20px] flex-wrap"
+                        className="w-full pt-[20px] h-[300px] flex gap-[20px] flex-wrap"
                         value={item}
                       >
                         <div
                           className={cn(
-                            "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                            "bg-secDark rounded-[12px] h-full justify-end  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                           )}
-                        ></div>
+                        >
+                          <Bar
+                            height={400}
+                            width={1000}
+                            data={topCollectionBarData}
+                            options={barOptions}
+                          />
+                        </div>
                       </TabsContent>
                     </>
                   )
@@ -1095,15 +1208,17 @@ export default function Home() {
                   (item, i) => (
                     <>
                       <TabsContent
-                        className="w-full pt-[20px] min-h-[300px] flex gap-[20px] flex-wrap"
+                        className="w-full pt-[20px] h-[300px] flex gap-[20px] flex-wrap"
                         value={item}
                       >
                         <div
                           className={cn(
-                            "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                            "bg-secDark rounded-[12px] h-full w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                           )}
                         >
                           <Bar
+                            width={1000}
+                            height={400}
                             data={topCollectionBarData}
                             options={barOptions}
                           />
@@ -1202,7 +1317,7 @@ export default function Home() {
               <CustomCard className="flex-grow min-h-[400px] flex flex-col gap-[20px]">
                 <div className="flex gap-1 items-center">
                   <span className="font-medium text-white text-[20px]">
-                    Category Market Cap
+                    Washtrade Volume by Chain
                   </span>
                   <Image
                     src={"/icons/info.svg"}
@@ -1215,6 +1330,8 @@ export default function Home() {
                 <div className="flex gap-[100px] items-center ">
                   <div className="max-h-[300px] max-w-[300px]">
                     <Doughnut
+                      height={800}
+                      width={1000}
                       options={{
                         plugins: {
                           legend: {
@@ -1259,7 +1376,7 @@ export default function Home() {
               <CustomCard className="flex-grow flex flex-col gap-[20px] min-h-[400px]">
                 <div className="flex gap-1 items-center">
                   <span className="font-medium text-white text-[20px]">
-                    Category Market Cap
+                    Buyers by Chain
                   </span>
                   <Image
                     src={"/icons/info.svg"}
@@ -1271,6 +1388,8 @@ export default function Home() {
                 <div className="flex gap-[100px] items-center ">
                   <div className="max-h-[300px] max-w-[300px]">
                     <Doughnut
+                      width={400}
+                      height={400}
                       options={{
                         plugins: {
                           legend: {
