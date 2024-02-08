@@ -382,28 +382,32 @@ export default function Home() {
                           <span className="font-semibold text-[22px]">
                             {item.value}
                           </span>
-                          <div className="flex items-center gap-[6px]">
-                            <span
-                              className={cn(
-                                "text-[14px]",
-                                parseFloat(item.gainValue) > 0
-                                  ? "text-customGreen"
-                                  : "text-customRed"
-                              )}
-                            >
-                              {item.gainValue}
-                            </span>
-                            <Image
-                              src={
-                                parseFloat(item.gainValue) > 0
-                                  ? "/icons/up.svg"
-                                  : "/icons/down.svg"
-                              }
-                              height={30}
-                              width={30}
-                              alt="logo"
-                            />
-                          </div>
+                          {item.gainValue.length > 1 ? (
+                            <div className="flex items-center gap-[6px]">
+                              <span
+                                className={cn(
+                                  "text-[14px]",
+                                  parseFloat(item.gainValue) > 0
+                                    ? "text-customGreen"
+                                    : "text-customRed"
+                                )}
+                              >
+                                {item.gainValue}
+                              </span>
+                              <Image
+                                src={
+                                  parseFloat(item.gainValue) > 0
+                                    ? "/icons/up.svg"
+                                    : "/icons/down.svg"
+                                }
+                                height={30}
+                                width={30}
+                                alt="logo"
+                              />
+                            </div>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </>
                     ))}
