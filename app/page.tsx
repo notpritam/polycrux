@@ -402,9 +402,9 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen dark bg-mainDark">
+    <main className="flex min-h-screen max-w-screen dark bg-mainDark">
       {/* SideBar */}
-      <div className="border-[0px] sticky top-0 left-0 h-screen bottom-0 border-r-[1px] border-strokeB1 w-[71px] py-[12px] flex flex-col items-center">
+      <div className="border-[0px] sticky top-0 left-0 h-screen bottom-0 border-r-[1px] border-strokeB1 min-w-[71px] py-[12px] flex flex-col items-center">
         <div className="flex items-center justify-center w-full">
           <Image src={"/logo.svg"} height={42} width={42} alt="logo" />
         </div>
@@ -443,9 +443,9 @@ export default function Home() {
 
       {/* Main Body */}
 
-      <div className="w-full flex-1">
+      <div className="w-full flex-grow flex-1">
         {/* Header */}
-        <div className="h-[61px] z-[10] bg-mainDark flex sticky top-0 w-full justify-between border-b-[1px] border-borderGray px-[24px] py-[10px]">
+        <div className="h-[61px] z-[10] bg-mainDark flex sticky top-0 max-w-full justify-between border-b-[1px] border-borderGray px-[24px] py-[10px]">
           {/* First Section with DropDown */}
           <div className="flex items-center gap-[24px]">
             <DropdownMenu>
@@ -552,7 +552,7 @@ export default function Home() {
 
           {/* BaroMeter */}
 
-          <div className="flex flex-col gap-4">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex items-center gap-2">
               <span className="text-[20px] font-medium text-white">
                 Barometer
@@ -740,7 +740,7 @@ export default function Home() {
                     >
                       <div
                         className={cn(
-                          "bg-secDark rounded-[12px] max-h-[200px]  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          "bg-secDark rounded-[12px] max-h-[200px] w-[90vw] flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
                       >
                         <Line
@@ -874,12 +874,12 @@ export default function Home() {
                 (item, i) => (
                   <>
                     <TabsContent
-                      className="w-full min-h-[250px] pt-[20px] flex gap-[20px] flex-wrap"
+                      className="w-full h-[250px] pt-[20px] flex gap-[20px] flex-wrap"
                       value={item}
                     >
                       <div
                         className={cn(
-                          "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          "bg-secDark rounded-[12px] h-[250px] w-[90vw]   flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
                       >
                         <Chart
@@ -1025,7 +1025,7 @@ export default function Home() {
                     >
                       <div
                         className={cn(
-                          "bg-secDark rounded-[12px] w-[80vw] h-[250px]    flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          "bg-secDark rounded-[12px] w-[90vw] h-[250px]    flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                         )}
                       >
                         <Chart
@@ -1125,7 +1125,7 @@ export default function Home() {
                       >
                         <div
                           className={cn(
-                            "bg-secDark rounded-[12px] h-full justify-end  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                            "bg-secDark rounded-[12px] w-[100%] h-full  flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                           )}
                         >
                           <Bar
@@ -1213,7 +1213,7 @@ export default function Home() {
                       >
                         <div
                           className={cn(
-                            "bg-secDark rounded-[12px] h-full w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                            "bg-secDark rounded-[12px] h-full w-[100%] flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
                           )}
                         >
                           <Bar
