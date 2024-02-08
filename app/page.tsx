@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 export default function Home() {
   const [selected, setSelected] = useState(5);
   return (
@@ -150,6 +152,86 @@ export default function Home() {
               />
             </div>
           </div>
+        </div>
+
+        <div className="w-full flex flex-col gap-[20px] p-[24px]">
+          {/* Market Mood */}
+          <div className="flex flex-col gap-1">
+            <span className="text-white text-[26px] font-semibold">
+              Market Mood
+            </span>
+            <p className="text-[14px] text-iconGray">
+              Real time global NFT market data. We have included{" "}
+              <span className="text-primaryLight">6,114</span>
+              collections and{" "}
+              <span className="text-primaryLight">46,401,282</span> NFTs in
+              total.
+            </p>
+          </div>
+
+          {/* BaroMeter */}
+
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-[20px] font-medium text-white">
+                Barometer
+              </span>
+              <Image
+                src={"/icons/info.svg"}
+                height={20}
+                width={20}
+                alt="logo"
+              />
+            </div>
+
+            <div className="flex gap-4 w-full">
+              <div className="w-[20%] rounded-[8px] flex flex-col gap-4 p-4 text-iconGray min-h-[150px] bg-secDark">
+                sdf
+              </div>
+              <div className="w-[40%] rounded-[8px] flex flex-col gap-4 p-4 text-iconGray min-h-[150px] bg-secDark">
+                sad
+              </div>
+              <div className="w-[40%] rounded-[8px] flex flex-col gap-4 p-4 text-iconGray min-h-[150px] bg-secDark">
+                asd
+              </div>
+            </div>
+          </div>
+
+          {/* Analytics */}
+          <Tabs defaultValue="account" className="w-full">
+            <TabsList className="flex justify-end bg-transparent gap-[6px]">
+              <TabsTrigger
+                className="text-[14px] text-iconGray"
+                value="all-time"
+              >
+                All Time
+              </TabsTrigger>
+              <TabsTrigger className="text-[14px] text-iconGray" value="90d">
+                90d
+              </TabsTrigger>
+              <TabsTrigger className="text-[14px] text-iconGray" value="30d">
+                30d
+              </TabsTrigger>{" "}
+              <TabsTrigger className="text-[14px] text-iconGray" value="7d">
+                7d
+              </TabsTrigger>{" "}
+              <TabsTrigger className="text-[14px] text-iconGray" value="20hr">
+                24hr
+              </TabsTrigger>{" "}
+              <TabsTrigger className="text-[14px] text-iconGray" value="30m">
+                30m
+              </TabsTrigger>
+              <TabsTrigger className="text-[14px] text-iconGray" value="15m">
+                15m
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              Make changes to your account here.
+            </TabsContent>
+            <TabsContent value="password">
+              Change your password here.
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </main>
