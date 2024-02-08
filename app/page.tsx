@@ -19,11 +19,19 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import CustomCard from "@/components/Card";
 
 interface Day7Data {
   name: string;
   value: string;
   gainValue: string;
+}
+
+interface graphData {
+  name: string;
+  color: string;
+  value: string;
+  change: string;
 }
 
 export default function Home() {
@@ -139,6 +147,33 @@ export default function Home() {
       name: "NFT market fear and greed index",
       value: "43.835407",
       gainValue: "-0.42805672",
+    },
+  ];
+
+  const holderTraders: graphData[] = [
+    {
+      name: "Holders",
+      color: "bg-primaryLight",
+      value: "4,793,672",
+      change: "0.36",
+    },
+    {
+      name: "Traders(7D)",
+      color: "bg-primaryColor",
+      value: "29,323",
+      change: "-14.41",
+    },
+    {
+      name: "Buyers(7D)",
+      color: "bg-yellow-400",
+      value: "16,644",
+      change: "14.92",
+    },
+    {
+      name: "Sellers(7D)",
+      color: "bg-red-500",
+      value: "16,909",
+      change: "-11.12",
     },
   ];
   function shuffle(array: Day7Data[]) {
@@ -416,6 +451,509 @@ export default function Home() {
               )
             )}
           </Tabs>
+          <CustomCard>
+            <Tabs defaultValue="all-time" className="w-full">
+              <div className="flex justify-between items-center">
+                <div className="flex gap-1 items-center">
+                  <span className="font-medium text-white text-[20px]">
+                    Blue Chip Index
+                  </span>
+                  <Image
+                    src={"/icons/info.svg"}
+                    height={16}
+                    width={16}
+                    alt="logo"
+                  />
+                </div>
+
+                <div>
+                  <TabsList className="flex justify-end bg-transparent gap-[6px]">
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="all-time"
+                    >
+                      All Time
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="90d"
+                    >
+                      90d
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30d"
+                    >
+                      30d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="7d"
+                    >
+                      7d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="20hr"
+                    >
+                      24hr
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30m"
+                    >
+                      30m
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="15m"
+                    >
+                      15m
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+              </div>
+
+              {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+                (item, i) => (
+                  <>
+                    <TabsContent
+                      className="w-full pt-[20px] flex gap-[20px] flex-wrap"
+                      value={item}
+                    >
+                      <div
+                        className={cn(
+                          "bg-secDark rounded-[12px] min-h-[200px]  w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                        )}
+                      ></div>
+                    </TabsContent>
+                  </>
+                )
+              )}
+            </Tabs>
+          </CustomCard>
+
+          <CustomCard>
+            <Tabs
+              defaultValue="all-time"
+              className="w-full flex flex-col gap-[12px]"
+            >
+              <div className="flex justify-between items-center">
+                <div className="flex gap-1 items-center">
+                  <span className="font-medium text-white text-[20px]">
+                    Market Cap & Volume
+                  </span>
+                </div>
+
+                <div>
+                  <TabsList className="flex justify-end bg-transparent gap-[6px]">
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="all-time"
+                    >
+                      All Time
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="90d"
+                    >
+                      90d
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30d"
+                    >
+                      30d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="7d"
+                    >
+                      7d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="20hr"
+                    >
+                      24hr
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30m"
+                    >
+                      30m
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="15m"
+                    >
+                      15m
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="border-r-[1px] border-black01 pr-[12px] flex flex-col gap-[2px]">
+                  <div className="flex items-center gap-[6px]">
+                    <div className="h-[10px] w-[10px] rounded-full bg-primaryLight"></div>
+                    <span className="text-iconGray text-[14px]">
+                      Market Cap
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-1">
+                    <div className="flex items-center gap-[6px]">
+                      <span className=" text-[14px] font-medium text-white">
+                        2.67M
+                      </span>
+                      <Image
+                        src={"/header/eth.svg"}
+                        height={10}
+                        width={6}
+                        alt="logo"
+                      />
+                    </div>
+                    <span className="text-customRed text-[10px]">-46.15%</span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-[2px]">
+                  <div className="flex items-center gap-[6px]">
+                    <div className="h-[10px] w-[10px] rounded-full bg-primaryColor"></div>
+                    <span className="text-iconGray text-[14px]">
+                      Volume(7D)
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-1">
+                    <div className="flex items-center gap-[6px]">
+                      <span className=" text-[14px] text-white font-medium">
+                        22.22K
+                      </span>
+                      <Image
+                        src={"/header/eth.svg"}
+                        height={10}
+                        width={6}
+                        alt="logo"
+                      />
+                    </div>
+                    <span className="text-customRed text-[10px]">-46.15%</span>
+                  </div>
+                </div>
+              </div>
+
+              {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+                (item, i) => (
+                  <>
+                    <TabsContent
+                      className="w-full min-h-[250px] pt-[20px] flex gap-[20px] flex-wrap"
+                      value={item}
+                    >
+                      <div
+                        className={cn(
+                          "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                        )}
+                      ></div>
+                    </TabsContent>
+                  </>
+                )
+              )}
+            </Tabs>
+          </CustomCard>
+
+          <CustomCard>
+            <Tabs
+              defaultValue="all-time"
+              className="w-full flex flex-col gap-[12px]"
+            >
+              <div className="flex justify-between items-center">
+                <div className="flex gap-1 items-center">
+                  <span className="font-medium text-white text-[20px]">
+                    Holders & Traders
+                  </span>
+                </div>
+
+                <div>
+                  <TabsList className="flex justify-end bg-transparent gap-[6px]">
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="all-time"
+                    >
+                      All Time
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="90d"
+                    >
+                      90d
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30d"
+                    >
+                      30d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="7d"
+                    >
+                      7d
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="20hr"
+                    >
+                      24hr
+                    </TabsTrigger>{" "}
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="30m"
+                    >
+                      30m
+                    </TabsTrigger>
+                    <TabsTrigger
+                      className="text-[14px] text-iconGray"
+                      value="15m"
+                    >
+                      15m
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                {holderTraders.map((item, i) => (
+                  <>
+                    <div
+                      key={i}
+                      className={cn(
+                        " pr-[12px] flex flex-col gap-[2px]",
+                        i + 1 != holderTraders.length
+                          ? "border-r-[1px] border-black01"
+                          : ""
+                      )}
+                    >
+                      <div className="flex items-center gap-[6px]">
+                        <div
+                          className={cn(
+                            "h-[10px] w-[10px] rounded-full",
+                            item.color
+                          )}
+                        ></div>
+                        <span className="text-iconGray text-[14px]">
+                          {item.name}
+                        </span>
+                      </div>
+                      <div className="flex items-end gap-1">
+                        <div className="flex items-center gap-[6px]">
+                          <span className=" text-[14px] font-medium text-white">
+                            {item.value}
+                          </span>
+                          <Image
+                            src={"/header/eth.svg"}
+                            height={10}
+                            width={6}
+                            alt="logo"
+                          />
+                        </div>
+                        <span
+                          className={cn(
+                            " text-[10px]",
+                            parseFloat(item.change) > 0
+                              ? "text-customGreen"
+                              : "text-customRed"
+                          )}
+                        >
+                          {item.change}%
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+
+              {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+                (item, i) => (
+                  <>
+                    <TabsContent
+                      className="w-full min-h-[250px] pt-[20px] flex gap-[20px] flex-wrap"
+                      value={item}
+                    >
+                      <div
+                        className={cn(
+                          "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                        )}
+                      ></div>
+                    </TabsContent>
+                  </>
+                )
+              )}
+            </Tabs>
+          </CustomCard>
+
+          <div className="flex flex-[10] gap-[20px]">
+            {" "}
+            <CustomCard className="flex-[4]">
+              <Tabs defaultValue="all-time" className="w-full">
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-1 items-center">
+                    <span className="font-medium text-white text-[20px]">
+                      Category Market Cap
+                    </span>
+                    <Image
+                      src={"/icons/info.svg"}
+                      height={16}
+                      width={16}
+                      alt="logo"
+                    />
+                  </div>
+
+                  <div>
+                    <TabsList className="flex justify-end bg-transparent gap-[6px]">
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="all-time"
+                      >
+                        All Time
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="90d"
+                      >
+                        90d
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="30d"
+                      >
+                        30d
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="7d"
+                      >
+                        7d
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="20hr"
+                      >
+                        24hr
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="30m"
+                      >
+                        30m
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="15m"
+                      >
+                        15m
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
+                </div>
+
+                {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+                  (item, i) => (
+                    <>
+                      <TabsContent
+                        className="w-full pt-[20px] min-h-[300px] flex gap-[20px] flex-wrap"
+                        value={item}
+                      >
+                        <div
+                          className={cn(
+                            "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          )}
+                        ></div>
+                      </TabsContent>
+                    </>
+                  )
+                )}
+              </Tabs>
+            </CustomCard>
+            <CustomCard className="flex-[5]">
+              <Tabs defaultValue="all-time" className="w-full">
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-1 items-center">
+                    <span className="font-medium text-white text-[20px]">
+                      Top Collections
+                    </span>
+                    <Image
+                      src={"/icons/info.svg"}
+                      height={16}
+                      width={16}
+                      alt="logo"
+                    />
+                  </div>
+
+                  <div>
+                    <TabsList className="flex justify-end bg-transparent gap-[6px]">
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="all-time"
+                      >
+                        All Time
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="90d"
+                      >
+                        90d
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="30d"
+                      >
+                        30d
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="7d"
+                      >
+                        7d
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="20hr"
+                      >
+                        24hr
+                      </TabsTrigger>{" "}
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="30m"
+                      >
+                        30m
+                      </TabsTrigger>
+                      <TabsTrigger
+                        className="text-[14px] text-iconGray"
+                        value="15m"
+                      >
+                        15m
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
+                </div>
+
+                {["all-time", "90d", "30d", "7d", "20hr", "30m", "15m"].map(
+                  (item, i) => (
+                    <>
+                      <TabsContent
+                        className="w-full pt-[20px] min-h-[300px] flex gap-[20px] flex-wrap"
+                        value={item}
+                      >
+                        <div
+                          className={cn(
+                            "bg-secDark rounded-[12px]   w-fit flex-grow py-[10px] px-[20px] text-white flex flex-col gap-4"
+                          )}
+                        ></div>
+                      </TabsContent>
+                    </>
+                  )
+                )}
+              </Tabs>
+            </CustomCard>
+          </div>
         </div>
         {/* Footer */}
         <Footer />
